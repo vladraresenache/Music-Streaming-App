@@ -100,8 +100,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Jamendo for providing the music API
 - All contributors who have helped shape this project
 - The open-source community for the amazing tools and libraries
-
-## Contact 📧
-
-Your Name - your.email@example.com
-Project Link: https://github.com/yourusername/Harmonia 
