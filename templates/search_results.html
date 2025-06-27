@@ -1,0 +1,48 @@
+{% if results %}
+<div class="songs-container">
+    {% for result in results %}
+    <div class="song-card">
+        <div class="song-info">
+            <img src="{{ result.album_image }}" alt="Album image" class="album-image"/>
+            <div class="song-text">
+                <h3>{{ result.title }}</h3>
+                <p>{{ result.artist }}</p>
+                <button class="play-link"
+                        data-url="{{ result.url }}"
+                        data-title="{{ result.title }}"
+                        data-artist="{{ result.artist }}">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+                <!-- Select + buton pentru adăugare -->
+                <div class="add-to-playlist">
+                    <select class="playlist-select">
+                        {% for pl in playlists %}
+                        <option value="{{ pl }}">{{ pl }}</option>
+                        {% endfor %}
+                    </select>
+                    <button
+                            id="add-btn-{{ loop.index }}"
+                            class="add-btn"
+                            onclick='addSongToPlaylist({{ result.id | tojson }}, {{ result.title | tojson }}, {{ result.artist | tojson }}, {{ result.url | tojson }}, {{ result.album_image | tojson }}, this)'>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>Nu am găsit rezultate pentru căutarea ta.</p>
+{% endif %}
+
+<script>
+        document.querySelectorAll('.play-link').forEach(button => {
+    button.addEventListener('click', () => {
+        const url = button.dataset.url;
+        const title = button.dataset.title;
+        const artist = button.dataset.artist;
+        playSingleSong(url, title, artist);
+    });
+});
+</script>

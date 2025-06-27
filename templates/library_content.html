@@ -1,0 +1,90 @@
+<div class="library-section">
+    <h2 style="font-size: 26px; font-weight: bold; color: #333;">🎵 Playlisturile tale</h2>
+
+    <!-- 🔘 Buton creare playlist -->
+    <div style="margin-bottom: 15px;">
+        <button onclick="createNewPlaylist()" style="padding: 8px 16px; background-color: #00BCD4; color: white; border: none; border-radius: 6px; cursor: pointer;">
+            ➕ Creează un nou playlist
+        </button>
+    </div>
+
+    {% if playlists %}
+        <ul class="playlist-songs">
+        {% for playlist in playlists %}
+        <li class="song-item">
+            <div class="song-info">
+                <div>
+                    <strong>{{ playlist.name }}</strong>
+                    <p>{{ playlist.songs|length }} melodii</p>
+                    {% if playlist.created_at %}
+                    <p>Creat la: {{ playlist.created_at if playlist.created_at is string else playlist.created_at.strftime('%d %b %Y %H:%M') }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="song-buttons">
+                <button onclick="viewPlaylist('{{ playlist.name }}')"><i class="fa-solid fa-info"></i></button>
+                <button onclick="playPlaylistFromLibrary('{{ playlist.name }}')"><i class="fa-solid fa-play"></i></button>
+                <button onclick="deletePlaylist('{{ playlist.name }}')"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nu ai niciun playlist creat încă.</p>
+    {% endif %}
+</div>
+
+<script>
+function viewPlaylist(name) {
+    $.get('/playlist_details', {name: name}, function(data) {
+        $('#search-results').html(data);
+        $('.genre-section').remove();
+    });
+}
+
+function playPlaylistFromLibrary(name) {
+    $.ajax({
+        url: '/shuffle_playlist',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({playlist_name: name}),
+        success: function (res) {
+            if (res.success) {
+                playPlaylist(res.songs);
+            } else {
+                alert(res.message || "Eroare la redare.");
+            }
+        },
+        error: function () {
+            alert("Eroare de conexiune cu serverul.");
+        }
+    });
+}
+
+// 🔘 Funcția pentru creare playlist
+function createNewPlaylist() {
+    const playlistName = prompt("Introdu numele noului playlist:");
+    if (!playlistName || playlistName.trim() === "") {
+        alert("Numele playlistului nu poate fi gol.");
+        return;
+    }
+
+    $.ajax({
+        url: '/create_playlist',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ name: playlistName }),
+        success: function (response) {
+            if (response.success) {
+                alert("Playlist creat!");
+                $('#library-button').click(); // Reîncarcă biblioteca
+            } else {
+                alert("Eroare: " + response.error);
+            }
+        },
+        error: function () {
+            alert("Eroare la creare playlist.");
+        }
+    });
+}
+</script>

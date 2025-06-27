@@ -1,0 +1,70 @@
+body {
+  position: relative;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #F0A9C1, #2A2A2A);
+  background-size: 400% 400%;
+  background-position: 0% 50%;
+  animation: gradientAnimation 10s ease infinite;
+  overflow: hidden;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.container {
+  background: linear-gradient(145deg, #F0A9C1, #d88ca8);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  border: 2px solid #2A2A2A;
+}
+
+
+.container h1 {
+  color: #28a745;
+  margin-bottom: 1rem;
+}
+
+.container p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.container a {
+  color: #765562;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.container a:hover {
+  text-decoration: underline;
+  color: #2A2A2A;
+}
+
+.background-logo-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 900px; /* poți ajusta dimensiunea aici */
+  height: 900px;
+  transform: translate(-50%, -43%);
+  background-image: url("/static/images/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 1; /* ajustabil */
+  z-index: -1;
+  pointer-events: none;
+}

@@ -1,0 +1,132 @@
+/* Resetare stiluri implicite */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #F0A9C1, #F0A9C1, #2A2A2A, #2A2A2A, #2A2A2A); /* Roz mai închis → fundal */
+  background-size: 400% 400%;
+  background-position: 0% 50%;
+   animation: gradientAnimation 10s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.background-logo-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 900px; /* poți ajusta dimensiunea aici */
+  height: 900px;
+  transform: translate(-50%, -43%);
+  background-image: url("/static/images/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 1; /* ajustabil */
+  z-index: -1;
+  pointer-events: none;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-wrapper {
+  background-color: #F0A9C1; /* Roz mai închis → container */
+  padding: 2rem 3rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 400px;
+  border: 2px solid #2A2A2A;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 1.5rem;
+  color: #2A2A2A; /* Negru deschis */
+}
+
+p {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.input-group {
+  margin-bottom: 1.2rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #ffffff;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #4CAF50; /* Border verde la focus */
+}
+
+.submit-btn {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #2A2A2A; /* Negru deschis */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #1c1c1c; /* Nuantă mai închisă de negru */
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.register-footer {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #2A2A2A;
+}
+
+.register-footer a {
+  color: #765562; /* Roz închis */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.register-footer a:hover {
+  text-decoration: underline;
+  color: #2A2A2A; /* Negru deschis la hover */
+}

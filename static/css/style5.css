@@ -1,0 +1,1025 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, p {
+    color: white;
+}
+
+.main-container {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #1c1c1c;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.sidebar-top {
+    margin-bottom: 40px;
+}
+
+.sidebar-top button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f23d8c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sidebar-top button:hover {
+    background-color: #ff69b4;
+}
+
+.sidebar-playlists {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+    margin-bottom: 1rem;
+}
+
+.playlist-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #292929;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.playlist-item:hover {
+    background-color: #404040;
+}
+
+.content {
+    flex: 1;
+    background-color: #333;
+    padding: 20px;
+    overflow-y: auto;
+    padding-bottom: 140px;
+}
+
+
+.search-container form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    flex: 1; /* << ADĂUGĂ asta ca să se întindă automat */
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px 0 0 5px; /* Colț rotund doar în stânga */
+    border: none;
+    background-color: #555;
+    color: white;
+}
+
+/* Butonul de căutare */
+.search-button {
+    padding: 10px 20px;
+    background-color: #f23d8c;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0; /* Colț rotund doar în dreapta */
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #ff69b4;
+}
+
+
+.player-bar {
+    position: fixed; /* Bara fixă */
+    bottom: 50px; /* Lasă spațiu pentru slider */
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #222;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 1000; /* Să stea deasupra altor elemente */
+}
+
+.player-bar .song-info {
+    flex: 1;
+}
+
+.player-bar button {
+    margin: 0 10px;
+    padding: 10px;
+    background-color: #f23d8c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.player-bar button:hover {
+    background-color: #ff69b4;
+}
+
+.songs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.song-card {
+    background-color: #444;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.song-card:hover {
+    background-color: #555;
+}
+
+.song-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.album-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.song-text h3 {
+    margin: 0;
+    color: white;
+    font-size: 18px;
+}
+
+.song-text p {
+    margin: 5px 0;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.play-link {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 5px 10px;
+    background-color: #f23d8c;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.play-link:hover {
+    background-color: #ff69b4;
+}
+
+.progress-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #222;
+    padding: 5px 20px;
+    box-sizing: border-box;
+    z-index: 999;
+}
+
+
+#progress-bar {
+    width: 100%;
+    height: 5px;
+    background: #555;
+    border-radius: 5px;
+    appearance: none;
+    cursor: pointer;
+}
+
+#progress-bar::-webkit-slider-thumb {
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #f23d8c;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.player-bar {
+    position: fixed;
+    bottom: 20px; /* exact deasupra progress-container */
+    left: 0;
+    width: 100%;
+    height: 60px; /* Mai mică bara de control */
+    background-color: #222;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#volume-bar {
+    width: 100px;
+    height: 5px;
+    background: #555;
+    border-radius: 5px;
+    appearance: none;
+    cursor: pointer;
+}
+
+#volume-bar::-webkit-slider-thumb {
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #f23d8c;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.create-playlist {
+    margin-bottom: 20px;
+}
+
+#create-playlist-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #f23d8c; /* Verde frumos */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#create-playlist-button:hover {
+    background-color: #ff69b4;
+}
+
+.playlist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+}
+
+/* Containerul care conține toate melodiile dintr-un playlist */
+.playlist-details {
+    margin-top: 30px;
+}
+
+.playlist-details h2 {
+    color: white;
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+/* Lista de melodii stilizată similar cu .song-card */
+.songs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Fiecare melodie din playlist */
+.song-card {
+    background-color: #444;
+    border-radius: 10px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.3s ease;
+}
+
+.song-card:hover {
+    background-color: #555;
+}
+
+.song-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.album-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.song-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-text h3 {
+    margin: 0;
+    color: white;
+    font-size: 18px;
+}
+
+.song-text p {
+    margin: 4px 0 0 0;
+    color: #ccc;
+    font-size: 14px;
+}
+
+/* Buton de redare */
+.play-link {
+    padding: 8px 14px;
+    background-color: #f23d8c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.play-link:hover {
+    background-color: #ff69b4;
+}
+
+/* Containerul general pentru detaliile playlistului */
+.playlist-details {
+    margin-top: 30px;
+    padding: 0 10px;
+}
+
+.playlist-details h2 {
+    font-size: 26px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* Containerul cu toate melodiile */
+.songs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Fiecare melodie */
+.song-card {
+    background-color: #444;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.3s ease;
+}
+
+.song-card:hover {
+    background-color: #555;
+}
+
+/* Partea stângă: imagine + text */
+.song-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.album-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Textul melodiei */
+.song-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-text h3 {
+    margin: 0;
+    color: white;
+    font-size: 18px;
+}
+
+.song-text p {
+    margin: 5px 0 0;
+    color: #ccc;
+    font-size: 14px;
+}
+
+/* Buton de redare */
+.play-link {
+    display: inline-block;
+    padding: 8px 14px;
+    background-color: #f23d8c;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.play-link:hover {
+    background-color: #ff69b4;
+}
+
+/* Containerul întreg al detaliilor playlistului */
+.playlist-details {
+    margin-top: 30px;
+    color: white;
+}
+
+/* Titlul playlistului */
+.playlist-details h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Lista fără bullets și fără margini */
+.playlist-songs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Fiecare melodie ca un card */
+.song-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #444;
+    border-radius: 10px;
+    padding: 12px 18px;
+    transition: background-color 0.3s ease;
+}
+
+/* Efect vizual la hover */
+.song-item:hover {
+    background-color: #555;
+}
+
+/* Imaginea albumului */
+.song-item img {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+/* Textul și artistul (stil combinat) */
+.song-item strong {
+    color: white;
+    font-size: 16px;
+}
+
+.song-item span {
+    color: #ccc;
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+.song-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.song-buttons button {
+    background-color: #f23d8c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.song-buttons button:hover {
+    background-color: #ff69b4;
+}
+
+.song-buttons button:last-child {
+    background-color: #b60000;
+}
+
+.song-buttons button:last-child:hover {
+    background-color: #e00000;
+}
+
+.playlist-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* PLAY */
+.play-playlist-btn {
+    background-color: #f23d8c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.play-playlist-btn:hover {
+    background-color: #ff69b4;
+}
+
+/* SHUFFLE */
+.shuffle-playlist-btn {
+    background-color: #00d4ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+}
+
+.shuffle-playlist-btn:hover {
+    background-color: #32e3ff;
+}
+
+.add-to-playlist {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Dropdown */
+.playlist-select {
+    background-color: #00d4ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    appearance: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.playlist-select:hover {
+    background-color: #32e3ff;
+}
+
+/* Buton Adaugă */
+.add-btn {
+    background-color: #00d4ff; /* Aqua */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-btn:hover {
+    background-color: #32e3ff;
+}
+
+.genre-section {
+    margin-top: 40px;
+}
+
+.genre-section h2 {
+    color: #f23d8c;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.genre-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 10px;
+}
+
+.genre-card {
+    min-width: 180px;
+    background-color: #444;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    flex-shrink: 0;
+    color: white;
+}
+
+.genre-card h4 {
+    margin: 10px 0 5px;
+    font-size: 16px;
+}
+
+.genre-card p {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.album-image-small {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.genre-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.genre-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #f23d8c #222;
+}
+
+/* Pentru browsere WebKit (Chrome, Edge, Safari) */
+.genre-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.genre-scroll::-webkit-scrollbar-track {
+    background: #222;
+    border-radius: 10px;
+}
+
+.genre-scroll::-webkit-scrollbar-thumb {
+    background-color: #f23d8c;
+    border-radius: 10px;
+    border: 2px solid #222;
+}
+
+.genre-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #ff69b4;
+}
+
+.song-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.play-button {
+    background-color: #f23d8c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.play-button:hover {
+    background-color: #ff69b4;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.action-buttons button {
+    background-color: #00d4ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.action-buttons button:hover {
+    background-color: #32e3ff;
+}
+
+.genre-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #f23d8c #333;
+}
+
+.genre-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.genre-scroll::-webkit-scrollbar-thumb {
+    background-color: #f23d8c;
+    border-radius: 10px;
+}
+
+.genre-card {
+    background-color: #444;
+    padding: 15px;
+    border-radius: 10px;
+    min-width: 200px;
+    flex-shrink: 0;
+    text-align: center;
+    color: white;
+}
+
+.album-image-small {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.song-actions {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.play-button {
+    background-color: #f23d8c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.play-button:hover {
+    background-color: #ff69b4;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.playlist-select {
+    background-color: #00d4ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.add-btn {
+    background-color: #00d4ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background-color: #32e3ff;
+}
+
+/* Toggle container */
+.enhance-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+/* Label styling */
+.enhance-toggle-container label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #00bcd4;
+}
+
+/* Hidden default checkbox */
+.enhance-toggle-container input[type="checkbox"] {
+    display: none;
+}
+
+/* Custom switch style */
+.toggle-switch {
+    position: relative;
+    width: 50px;
+    height: 24px;
+    background-color: #ccc;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.toggle-switch::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 2px;
+    left: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+/* Checkbox checked */
+.enhance-toggle-container input:checked + .toggle-switch {
+    background-color: #00bcd4;
+}
+
+.enhance-toggle-container input:checked + .toggle-switch::before {
+    transform: translateX(26px);
+}
+
+.progress-container span {
+    color: white;
+    min-width: 40px;
+    text-align: center;
+}
+
+.custom-select {
+    appearance: none;
+    background-color: #fff;
+    color: #2A2A2A;
+    padding: 10px 40px 10px 15px;
+    border: 2px solid #2A2A2A;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Segoe UI', sans-serif;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%204%205'%3E%3Cpath%20fill='black'%20d='M2%200L0%202h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-select:hover {
+    border-color: #765562;
+}
+
+/* --- Dropdown-ul de limită rezultate --- */
+/* Stil general dropdown */
+#search-limit {
+    appearance: none; /* elimină stilul nativ */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    padding: 0.6rem 1.5rem 0.6rem 0.75rem;
+    border-radius: 10px;
+    border: 2px solid #2A2A2A;
+    background-color: #F0A9C1; /* roz */
+    color: #2A2A2A; /* text închis */
+    font-size: 1rem;
+    font-weight: 500;
+    background-image: none;
+    cursor: pointer;
+}
+
+/* Pentru Firefox: elimină săgeata nativă */
+#search-limit::-ms-expand {
+    display: none;
+}
+
+
+/* --- Toggle Switch (După gen) --- */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+    margin-left: 15px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: #ccc;
+    border-radius: 34px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #765562;
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.switch-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+#search-form {
+    margin-bottom: 10px;
+}
+
+
+
+.sidebar-playlists::-webkit-scrollbar {
+    width: 6px;
+
+}
+
+.sidebar-playlists::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 6px;
+}
+
+.sidebar-playlists::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}

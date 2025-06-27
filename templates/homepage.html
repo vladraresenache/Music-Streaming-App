@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Streaming App</title>
+    <link rel="stylesheet" href="/static/css/style5.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="main-container">
+    <div class="sidebar">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" />
+        <div class="welcome-message" style="padding: 1rem; font-size: 1rem; font-weight: bold;">
+                {{ name }}
+        </div>
+        <div class="sidebar-top">
+            <button id="logout-button" style="margin-top: 10px; background-color: #e74c3c; color: white;">
+                 <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+            <button id="home-button"><i class="fa-solid fa-house"></i> Acasă</button>
+            <button id="library-button"><i class="fa-solid fa-music"></i> Biblioteca ta</button>
+        </div>
+        <div class="create-playlist">
+            <button id="create-playlist-button"><i class="fa-solid fa-plus"></i> Creează Playlist</button>
+        </div>
+        <div class="sidebar-playlists" id="sidebar-playlists"></div>
+    </div>
+
+    <div class="content">
+        <div class="search-container">
+            <form id="search-form">
+                <input type="text" id="search-input" class="search-input" placeholder="Căutare..." />
+                <button type="submit" class="search-button">
+                    <i class="fa-solid fa-search"></i> Căutare
+                </button>
+                <label class="switch-label">
+                    <span>După gen</span>
+                    <label class="switch">
+                        <input type="checkbox" id="genre-toggle" name="genre-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                </label>
+                <select id="search-limit" style="padding: 0.5rem; border-radius: 10px;">
+                    <option value="5">5 rezultate</option>
+                    <option value="10" selected>10 rezultate</option>
+                    <option value="20">20 rezultate</option>
+                    <option value="30">30 rezultate</option>
+                </select>
+            </form>
+        </div>
+
+        {% if recommendations %}
+        {% for genre, songs in recommendations.items() %}
+        <div class="genre-section">
+            <h2><i class="fa-solid fa-headphones"></i> {{ genre.capitalize() }} </h2>
+            <div class="genre-scroll">
+                {% for song in songs %}
+                <div class="genre-card">
+                    <img src="{{ song.album_image }}" class="album-image-small" />
+                    <h4>{{ song.title }}</h4>
+                    <p>{{ song.artist }}</p>
+                    <div class="song-actions">
+                        <button class="play-button"
+                                onclick='playSingleSong({{ song.url | tojson }}, {{ song.title | tojson }}, {{ song.artist | tojson }})'>
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                        <div class="action-buttons">
+                            <select class="playlist-select">
+                                {% for pl in playlists %}
+                                <option value="{{ pl }}">{{ pl }}</option>
+                                {% endfor %}
+                            </select>
+                            <button class="add-btn"
+                                    onclick='addSongToPlaylist(
+                                        {{ song.id | tojson }},
+                                        {{ song.title | tojson }},
+                                        {{ song.artist | tojson }},
+                                        {{ song.url | tojson }},
+                                        {{ song.album_image | tojson }},
+                                        this)'>
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <div id="search-results"></div>
+    </div>
+
+    <div class="player-bar">
+        <div class="song-info" id="current-song">---------</div>
+        <div class="controls">
+            <button id="crossfade-button"><i class="fa-solid fa-sliders"></i>  CrossFade</i></button>
+            <button id="download-button"><i class="fa-solid fa-download"></i></i></button>
+            <button id="prev-button"><i class="fa-solid fa-backward-step"></i></button>
+            <button id="play-pause-button"><i class="fa-solid fa-play"></i></button>
+            <button id="next-button"><i class="fa-solid fa-forward-step"></i></button>
+            <input type="range" id="volume-bar" min="0" max="1" step="0.01" value="1">
+        </div>
+    </div>
+
+    <div class="progress-container" style="display: flex; align-items: center; gap: 10px;">
+    <span id="current-time">0:00</span>
+    <input type="range" id="progress-bar" value="0" min="0" max="100" step="1" style="flex: 1;">
+    <span id="duration-time">0:00</span>
+</div>
+
+
+    <audio id="audio-player" controls style="display: none;"></audio>
+    <audio id="audio-player-2" controls style="display: none;"></audio>
+</div>
+
+<!-- Inițializarea listelor -->
+<script>
+    const initialPlaylists = {{ (playlists or []) | tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/player.js') }}"></script>
+</body>
+</html>

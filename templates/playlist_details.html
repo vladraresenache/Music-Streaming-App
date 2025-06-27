@@ -1,0 +1,81 @@
+<div class="playlist-details">
+    <h2>{{ playlist.name }}</h2>
+
+    {% if playlist.songs %}
+    <button class="play-playlist-btn"
+            onclick='playPlaylist({{ playlist.songs | default([]) | tojson | safe }})'>
+        <i class="fa-solid fa-play"></i>
+    </button>
+    <button class="shuffle-playlist-btn"
+            onclick='shufflePlaylist("{{ playlist.name }}")'>
+        <i class="fa-solid fa-shuffle"></i>
+    </button>
+    <div class="enhance-toggle-container">
+    <label for="enhance-toggle"><i class="fa-solid fa-brain"></i> I n t e l l i M i x
+    <input type="checkbox"
+           id="enhance-toggle"
+           {% if playlist.enhanced %}checked{% endif %}
+           onchange="toggleEnhancePlaylist('{{ playlist.name }}')">
+    <div class="toggle-switch"></div>
+    </label>
+</div>
+
+
+
+    <ul class="playlist-songs">
+        {% for song in playlist.songs %}
+        <li class="song-item">
+            <img src="{{ song.album_image }}" alt="Album" width="50" height="50"/>
+            <strong>{{ song.title }}</strong> - {{ song.artist }}
+
+            <div class="song-buttons">
+                <button class="play-link"
+                        data-url="{{ song.url }}"
+                        data-title="{{ song.title }}"
+                        data-artist="{{ song.artist }}">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+                <button onclick='deleteSongFromPlaylist("{{ playlist.name }}", "{{ song.id }}", this)'>
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Acest playlist nu conține încă melodii.</p>
+    {% endif %}
+</div>
+
+<script>
+    document.querySelectorAll('.play-link').forEach(button => {
+        button.addEventListener('click', () => {
+            const url = button.dataset.url;
+            const title = button.dataset.title;
+            const artist = button.dataset.artist;
+            playSingleSong(url, title, artist);
+        });
+    });
+    function toggleEnhancePlaylist(playlistName) {
+    const toggleState = document.getElementById("enhance-toggle").checked;
+
+    $.ajax({
+        url: '/toggle_enhance_playlist',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ playlist_name: playlistName, toggle: toggleState }),
+        success: function (res) {
+            if (res.success) {
+                $('#library-button').click();
+            } else {
+                alert("Eroare: " + res.error);
+            }
+        },
+        error: function () {
+            alert("Eroare de conexiune la server.");
+        }
+    });
+}
+
+
+</script>

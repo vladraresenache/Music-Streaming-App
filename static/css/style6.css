@@ -1,0 +1,58 @@
+.songs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.song-card {
+    background-color: #444;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.song-card:hover {
+    background-color: #555;
+}
+
+.song-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.album-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.song-text h3 {
+    margin: 0;
+    color: white;
+    font-size: 18px;
+}
+
+.song-text p {
+    margin: 5px 0;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.play-link {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 5px 10px;
+    background-color: #f23d8c;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.play-link:hover {
+    background-color: #ff69b4;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selectează Genurile</title>
+    <link rel="stylesheet" href="../static/css/style4.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Selectează-ți genurile preferate</h1>
+        <h2>Selectează minim 5 genuri muzicale</h2>
+        <form method="POST" class="genre-form" id="genre-form" onsubmit="return validateForm()">
+            <div class="genre-row">
+                {% for genre, value in genres.items() %}
+                    <!-- Ascund checkbox-ul și textul de lângă checkbox -->
+                    <label class="genre-item">
+                        <input type="checkbox" name="genres" value="{{ genre }}" class="genre-checkbox" id="checkbox-{{ genre }}" style="display: none;" onclick="toggleCheckbox(this, '{{ genre }}');">
+                        <div class="genre-image-container">
+                            <img src="{{ url_for('static', filename='images/' ~ genre ~ '.png') }}" alt="{{ genre }}" class="genre-image" id="image-{{ genre }}">
+                        </div>
+                    </label>
+                {% endfor %}
+            </div>
+            <div id="error-message" style="color: red; display: none;">Trebuie să selectezi cel puțin 5 genuri!</div>
+            <button type="submit" class="submit-btn">Salvează genurile</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleCheckbox(checkbox, genre) {
+            var image = document.getElementById('image-' + genre);
+
+            // Actualizează stilurile imaginii pe baza stării checkbox-ului
+            if (checkbox.checked) {
+                image.style.filter = 'grayscale(0%)'; // Elimină grayscale
+                image.style.borderColor = 'pink'; // Border roz pentru imagine
+                image.style.borderWidth = '3px'; // Grosimea bordurii
+            } else {
+                image.style.filter = 'grayscale(100%)'; // Aplica grayscale
+                image.style.borderColor = 'transparent'; // Fără border
+                image.style.borderWidth = '0px'; // Fără border
+            }
+        }
+
+        function validateForm() {
+            const selectedGenres = document.querySelectorAll('.genre-checkbox:checked');
+            if (selectedGenres.length < 5) {
+                document.getElementById('error-message').style.display = 'block'; // Afișează mesajul de eroare
+                return false; // Previi trimiterea formularului
+            }
+            return true; // Permite trimiterea formularului
+        }
+    </script>
+</body>
+</html>

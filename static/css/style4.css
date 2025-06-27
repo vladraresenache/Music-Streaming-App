@@ -1,0 +1,107 @@
+/* Stil pentru containerul principal */
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #2A2A2A; /* Roz mai închis → fundal */
+  overflow: hidden; /* Previne apariția unui scroll general pe pagină */
+}
+
+/* Stil pentru formular */
+.genre-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Container pentru imagini */
+.genre-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 coloane egale */
+    gap: 20px;
+    margin-bottom: 40px; /* Spațiu între imagini și buton */
+    max-height: 60vh; /* Limitează înălțimea la 80% din ecran */
+    overflow-y: scroll; /* Permite derularea pe verticală */
+    padding-right: 20px; /* Previne scrollul orizontal nedorit */
+}
+
+/* Stil pentru fiecare gen */
+.genre-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Stil pentru imagine */
+.genre-image {
+    width: 10vw; /* 10% din latimea ecranului */
+    height: auto;
+    border-radius: 20%;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+    margin-bottom: 5px;
+    filter: grayscale(100%); /* Inițial imaginea este în grayscale */
+}
+
+/* Efect când checkbox-ul este selectat */
+.genre-checkbox:checked + .genre-image-container .genre-image {
+    filter: grayscale(0%); /* Se elimină efectul de grayscale când imaginea este selectată */
+    border-color: pink;
+    background-color: rgba(255, 192, 203, 0.3); /* Fundal roz deschis pentru imaginea selectată */
+}
+
+/* Stil pentru textul principal (h1) */
+h1, h2 {
+    margin-bottom: 1.5rem;
+    color: #F0A9C1; /* Roz deschis pentru titlu */
+}
+
+/* Stil pentru textul butonului */
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #F0A9C1; /* Roz deschis */
+    color: #2A2A2A; /* Text negru pentru vizibilitate */
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+/* Schimbare culoare buton când se face hover */
+.submit-btn:hover {
+    background-color: #F27C8E; /* Roz mai închis pentru hover */
+}
+
+/* Stilizare pentru scrollbar */
+::-webkit-scrollbar {
+    width: 8px; /* Lățimea scroll bar-ului */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #F0A9C1; /* Culoarea thumb-ului (partea care se mută) */
+    border-radius: 4px; /* Colțuri rotunjite pentru thumb */
+    border: 2px solid #F27C8E; /* Border roz mai închis */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #2A2A2A; /* Fundalul track-ului (baza scrollbar-ului) */
+    border-radius: 4px; /* Colțuri rotunjite pentru track */
+}
+
+::-webkit-scrollbar:hover {
+    width: 12px; /* Lățimea scroll bar-ului când treci cu mouse-ul pe el */
+}

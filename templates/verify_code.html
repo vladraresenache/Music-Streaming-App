@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificare Cod</title>
+    <link rel="stylesheet" href="../static/css/style3.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="background-logo-center"></div>
+    <div class="form-wrapper">
+        <h1>Verifică Codul de Înregistrare</h1>
+        <p>Te rog să introduci codul de verificare trimis pe adresa de email {{ email }}.</p>
+
+        <form action="/verify_code" method="POST">
+            <div class="input-group">
+                <input type="text" name="code_to_verif" placeholder="Introdu codul de verificare" required>
+            </div>
+            {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+            {% endif %}
+            <button type="submit" class="submit-btn">Verifică</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

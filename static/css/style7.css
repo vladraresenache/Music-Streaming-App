@@ -1,0 +1,113 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #F0A9C1, #F0A9C1, #2A2A2A, #2A2A2A, #2A2A2A);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.background-logo-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 900px; /* poți ajusta dimensiunea aici */
+  height: 900px;
+  transform: translate(-50%, -43%);
+  background-image: url("/static/images/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 1; /* ajustabil */
+  z-index: -1;
+  pointer-events: none;
+}
+
+.form-container {
+  background-color: #F0A9C1;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  border: 2px solid #2A2A2A;
+}
+
+.form-container h2 {
+  margin-bottom: 1rem;
+  color: #2A2A2A;
+  text-align: center;
+}
+
+.form-container p {
+  color: #2A2A2A;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+form input[type="email"] {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+form button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #2A2A2A;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background-color: #1a1a1a;
+}
+
+.message,
+.error_message {
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.message {
+  color: green;
+}
+
+.error_message {
+  color: red;
+}
+
+.form-container a {
+  display: block;
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #765562;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.form-container a:hover {
+  color: #2A2A2A;
+  text-decoration: underline;
+}
