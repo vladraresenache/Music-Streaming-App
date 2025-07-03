@@ -1,4 +1,4 @@
-# Harmonia Music Application 🎵
+# Harmonia Music Application 
 
 Harmonia is a sophisticated music streaming and playlist management application that uses AI-powered recommendations to enhance your music discovery experience.
 
